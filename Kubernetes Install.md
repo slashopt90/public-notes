@@ -4,7 +4,7 @@ https://www.learnlinux.tv/how-to-build-an-awesome-kubernetes-cluster-using-proxm
 
 ## System configuration
 
-- Using Ubuntu sever 22.04
+- Using #Ubuntu sever 22.04
 
 ```sudo apt install containerd
 ```
@@ -15,7 +15,7 @@ sudo mkdir /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
-For this cluster to work properly, we’ll need to enable SystemdCgroup within the configuration. To do that, we’ll need to edit the config we’ve just created:
+For this #kubernetes cluster to work properly, we’ll need to enable SystemdCgroup within the configuration. To do that, we’ll need to edit the config we’ve just created:
 
 ```
 sudo nano /etc/containerd/config.toml
@@ -92,10 +92,8 @@ After the initialization finishes, you should see at least four commands printed
 
 ### Message recieved after first node install
 
->
-our Kubernetes control-plane has initialized successfully!
-
-To start using your cluster, you need to run the following as a regular user:
+"our Kubernetes control-plane has initialized successfully! 
+  To start using your cluster, you need to run the following as a regular user
 
 ```
   mkdir -p $HOME/.kube
@@ -130,14 +128,16 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join 192.168.10.66:6443 --token 2be5af.zxztnj9vmgvnzmat \
 	--discovery-token-ca-cert-hash sha256:803dce1dcdbaa60dfd065300668fefe8037a176a2e03fbb44193e73ba83fdf29 
 ```
-
+"
 
 ## Installing MetalLB 
 
 ### Protocol: layer 2
 
-seguito https://metallb.universe.tf/configuration/
-configurato con 
+> see https://metallb.universe.tf/configuration/
+
+configuration yaml 
+
 ```
   apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -155,9 +155,9 @@ metadata:
   namespace: metallb-system
 ```
 
-specificare un range di indirizzo ip gestito da pfsense!
+specificare un range di indirizzo ip gestito dal router!
 
-:
+
 ## Install ingress-nginx-controller
 
 using helm
@@ -193,7 +193,7 @@ patch the frontend service to have an external IP from the load balancer
 ```
 
 #### Creating certificates
-using mkcert
+using #mkcert
 
 ```
   mkcert -install
