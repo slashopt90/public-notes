@@ -30,4 +30,4 @@ SPACE_ID => 'IOT');
 
 ## Upsert
 
-In case the Data glow is configured as *Upsert*, grant also the **DELETE** and **UPDATE** permission.
+In case the Data flow is configured as *Upsert*, grant also the **DELETE** and **UPDATE** permission.
