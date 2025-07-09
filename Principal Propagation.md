@@ -7,18 +7,20 @@ We first need to establish a *SAML* trust between account 2 and account 1, and t
 ## Prepare the IdP Metadata  for establishing trust
 
 1. Download the certificate of subaccount 1 by clicking *Export* in *Connectivity* -> *Destination Trust* ![[Pasted image 20250702183626.png]]
-2.  Download the *SAML Metadata* of subaccount 1 in *Security* -> *Trust Configuration* and click *Download SAML Metadata* ![[Pasted image 20250702183820.png]]
-3. In the downloaded file, take note of the value indicated at the place of *\<alias\>*
+> it could be required to generate the trust first ![[Pasted image 20250709101753.png]]
+2. Take note of the *subdomain* e *subaccount id* ![[Pasted image 20250709101834.png]]
+3.  Download the *SAML Metadata* of subaccount 1 in *Security* -> *Trust Configuration* and click *Download SAML Metadata* ![[Pasted image 20250702183820.png]]
+4. In the downloaded file, take note of the value indicated at the place of *\<alias\>*
 ```xml
 ...
 <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:URI" Location="https://${S1_SUBDOMAIN}.authentication.${S1_LANDSCAPE_DOMAIN}/oauth/token/alias/<alias>" index="1"/>
 ...
 ```
-4. Create the *idp metadata* file by replacing the placeholders with the certificate and the alias
+4. Create the *idp metadata* file by replacing the placeholders with the certificate, the alias and the subdomain and subaccount
 ```xml
 <ns3:EntityDescriptor
-    ID="cfapps.${S1_LANDSCAPE_DOMAIN}/${S1_SUBACCOUNT_ID}"
-    entityID="cfapps.${S1_LANDSCAPE_DOMAIN}/${S1_SUBACCOUNT_ID}"
+    ID="cfapps.{{subdomain}}/{{subaccount_id}}"
+    entityID="cfapps.{{subdomain}}/{{subaccount_id}}"
     xmlns="http://www.w3.org/2000/09/xmldsig#"
     xmlns:ns2="http://www.w3.org/2001/04/xmlenc#"
     xmlns:ns4="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -63,15 +65,15 @@ We first need to establish a *SAML* trust between account 2 and account 1, and t
 2. Paste the content of the metadata file made previosuly and press Parse to fill the form. Do **NOT** flag *Availabgle for User Logon* but flag *Create Shadow Users during Logon*![[Pasted image 20250702231934.png]]
 
 # Create the destination 
-1. Download the *SAML Metadata* of subaccount 1 in *Security* -> *Trust Configuration* and click *Download SAML Metadata* 
-2. Retrieve the value for *<alias\>* and *\<\assertion>* 
+1. Download the *SAML Metadata* of subaccount 2 in *Security* -> *Trust Configuration* and click *Download SAML Metadata* 
+2. Retrieve the value for *<alias\>* and *\<audience\>* 
 ```xml
 <md:EntityDescriptor entityID="<audience>" ...>
 ...
 <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:URI" Location="https://${S2_SUBDOMAIN}.authentication.${S2_LANDSCAPE_DOMAIN}/oauth/token/alias/<alias>" index="1"/>
 ...
 ```
-3. Create a new Destination with these values
+3. Create a new Destination for subaccount 1 with these values
 
 | Property               | Value                                                                                                                 |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
